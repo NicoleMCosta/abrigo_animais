@@ -292,7 +292,30 @@ public class Testes {
 
     //Testes Fluxo
     @Test
-    public void TesteFluxoCompletoMain() {
+    public void EntradaInvalidaMenu(){
+        String inputSimulado = "abc\n0\n";
+
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+
+        try{
+            System.setIn(new ByteArrayInputStream(inputSimulado.getBytes()));
+
+            ByteArrayOutputStream saidaCapturada = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(saidaCapturada));
+
+            Abrigo_animais.main(new String[]{});
+            String saidaTexto = saidaCapturada.toString();
+
+            assertTrue(saidaTexto.contains("Entrada invalida! Digite um numero."));
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
+    }
+
+    @Test
+    public void TesteFluxoListar() {
     String inputSimulado =
                 "1\n" +
                 "3\n" +
@@ -336,6 +359,85 @@ public class Testes {
             System.setOut(originalOut);
         }
     }
+
+    @Test
+    public void TesteFluxoCompleto() {
+        String inputSimulado =
+                // Menu: 5 = Animal
+                "5\n" +
+                "1\n" +           // Cadastrar
+                "Bolt\n" +        // nome
+                "Cachorro\n" +    // especie
+                "10.0\n" +        // peso
+                "4\n" +           // idade
+                "Médio\n" +       // porte
+                        //saida: Cadastro realizado com sucesso!
+                "1\n" +           // Voltar menu Animal
+                "3\n" +           // Listar
+                        //saida: --- ANIMAIS ---
+                "2\n" +           // Voltar menu main
+
+                // Menu: 1 = Veterinário
+                "2\n" +
+                "1\n" +           // Cadastrar
+                "Dr. House\n" +   // nome
+                "Rua A\n" +       // endereço
+                "45\n" +          // idade
+                "Clinico\n" +     // especialidade
+                "01/01/2020\n" +  // data contratacao
+                "1\n" +           // Voltar menu Veterinário
+                "3\n" +           // Listar
+                "2\n" +           // Voltar menu main
+
+                // Menu: 4 = Prontuário
+                "4\n" +
+                "1\n" +           // Criar prontuário
+                "1\n" +           // código
+                "Dr. House\n" +   // nome médico
+                "Vacinação\n" +   // tratamento
+                "Em andamento\n" +// status
+                "1\n" +           // Voltar menu Prontuário
+                "3\n" +           // Listar prontuários
+                "2\n" +           // Voltar menu main
+
+                // Alterar animal (menu 5)
+                "5\n" +
+                "2\n" +           // Alterar
+                "0\n" +           // índice do animal
+                "Bolt Jr.\n" +    // novo nome
+                "\n" +            // manter espécie
+                "12.0\n" +        // novo peso
+                "5\n" +           // nova idade
+                "Grande\n" +      // novo porte
+                "1\n" +           // Voltar menu Animal
+                "3\n" +           // Listar
+                "2\n" +           // Voltar menu main
+                "0\n";            // Sair geral
+
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+
+        try {
+            System.setIn(new ByteArrayInputStream(inputSimulado.getBytes()));
+            ByteArrayOutputStream saidaCapturada = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(saidaCapturada));
+
+            Abrigo_animais.main(new String[]{});
+            String saida = saidaCapturada.toString();
+
+            // Verificações
+            assertTrue(saida.contains("Nome: Bolt"));                // animal original
+            assertTrue(saida.contains("Nome do Médico: Dr. House"));
+            assertTrue(saida.contains("Tratamento: Vacinação"));     // prontuário
+            assertTrue(saida.contains("Nome: Bolt Jr."));            // alteração persistida
+            assertTrue(saida.contains("Cadastro alterado com sucesso!"));
+
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
+    }
+
 
 }
 
