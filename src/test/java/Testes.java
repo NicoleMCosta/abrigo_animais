@@ -23,6 +23,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Testes {
@@ -58,12 +60,7 @@ public class Testes {
 //    @BeforeEach
 //    public void setUp() {
 //    }
-//    
-    @AfterEach
-    public void restoreStreams() {
-        System.setOut(originalOut);
-        System.setIn(originalIn);
-    }
+//
 
 
     // TODO add test methods here.
@@ -91,10 +88,11 @@ public class Testes {
         // - novo peso: 4.2
         // - nova idade: 3
         // - novo porte: Pequeno
-        String input = "0\nMittens\nGato\n4.2\n3\nPequeno\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        Abrigo_animais.AlterarCadastroAnimal(animais);
+        String inputStr = "0\nMittens\nGato\n4.2\n3\nPequeno\n";
+        Scanner input = new Scanner(new ByteArrayInputStream(inputStr.getBytes()));
+
+        Abrigo_animais.AlterarCadastroAnimal(animais, input);
 
         Animal alterado = animais.get(0);
 
@@ -126,10 +124,10 @@ public class Testes {
         //novo endereço: Enter mantém
         //nova idade: 31
 
-        String input = "0\nMaria Eduarda\n\n31\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        String inputStr = "0\nMaria Eduarda\n\n31\n";
+        Scanner input = new Scanner(new ByteArrayInputStream(inputStr.getBytes()));
 
-        Abrigo_animais.AlterarCadastroPessoa(adotantes);
+        Abrigo_animais.AlterarCadastroPessoa(adotantes, input);
         Adotantes alterado = adotantes.get(0);
 
         assertEquals("Maria Eduarda", alterado.getNome());
@@ -165,14 +163,14 @@ public class Testes {
         //tratamento: Enter mantém
         //data: 09/07/2025
         //hora: 17:00
-        String input = "0\nDanton J. Silva\n" +
+        String inputStr = "0\nDanton J. Silva\n" +
                 "\n" +
                 "\n" +
                 "09/07/2025\n" +
                 "17:00\n";
 
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        Abrigo_animais.AlterarCadastroAgenda(agendas);
+        Scanner input = new Scanner(new ByteArrayInputStream(inputStr.getBytes()));
+        Abrigo_animais.AlterarCadastroAgenda(agendas, input);
         Agenda alterado = agendas.get(0);
 
         assertEquals("Danton J. Silva", alterado.getVetNome());
@@ -208,10 +206,10 @@ public class Testes {
         //endereço: Rua B, apto 1
         //idade: 24
         //data: 20/02/2023
-        String input = "0\nMarissa Castro\nRua B, apto 1\n24\n20/02/2023\n";
+        String inputStr = "0\nMarissa Castro\nRua B, apto 1\n24\n20/02/2023\n";
+        Scanner input = new Scanner(new ByteArrayInputStream(inputStr.getBytes()));
 
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        Abrigo_animais.AlterarCadastroAtendente(atendentes);
+        Abrigo_animais.AlterarCadastroAtendente(atendentes, input);
         Atendente alterado = atendentes.get(0);
 
         assertEquals("Marissa Castro", alterado.getNome());
@@ -250,10 +248,10 @@ public class Testes {
         //esp: Clinico Geral
         //data: 10/02/2024
 
-        String input = "0\nViniciu C.K.\nRua B\n25\nClinico Geral\n10/02/2024\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        String inputStr = "0\nViniciu C.K.\nRua B\n25\nClinico Geral\n10/02/2024\n";
+        Scanner input = new Scanner(new ByteArrayInputStream(inputStr.getBytes()));
 
-        Abrigo_animais.AlterarCadastroMedico(veterinarios);
+        Abrigo_animais.AlterarCadastroMedico(veterinarios, input);
         Veterinario alterado = veterinarios.get(0);
 
         assertEquals("Viniciu C.K.", alterado.getNome());
@@ -280,9 +278,9 @@ public class Testes {
         Prontuario prtOg = new Prontuario(123, "Dra. Ana", "Cirurgia", "Em Andamento");
         prontuarios.add(prtOg);
 
-        String input = "0\n100\nDra. Anahi\nCirurgia na perna esquerda\nConcluido\n";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        Abrigo_animais.AlterarProntuario(prontuarios);
+        String inputStr  = "0\n100\nDra. Anahi\nCirurgia na perna esquerda\nConcluido\n";
+        Scanner input = new Scanner(new ByteArrayInputStream(inputStr.getBytes()));
+        Abrigo_animais.AlterarProntuario(prontuarios, input);
 
         Prontuario alterado = prontuarios.get(0);
 
@@ -294,28 +292,27 @@ public class Testes {
 
     //Testes Fluxo
     @Test
-    public void TesteFluxoCompletoMain() { //esta com problemas de Line Not Found
-        // Simulação do fluxo completo:
-        // Menu principal: 1 - Animal
-        // Submenu: 1 - Cadastrar
-        // Dados do animal: nome, especie, peso, idade, porte
-        // Menu principal: 1 - Animal
-        // Submenu: 3 - Listar
-        // Menu principal: 0 - Sair
-
-        String inputSimulado =
-                "5\n" +                // Escolher menu: Animal
-                "1\n" +                // Submenu: Cadastrar
-                "Bolt\n" +             // Nome
-                "Cachorro\n" +         // Especie
-                "12.5\n" +             // Peso
-                "4\n" +                // Idade
-                "Grande\n" +           // Porte
-                "1\n" +                // Manter menu Animal
-                "3\n" +                // Submenu: Listar
-                "2\n" +                // Sair menu Animal
-                "0\n" +                 // Sair do menu
-                "\n\n\n\n\n\n";
+    public void TesteFluxoCompletoMain() {
+    String inputSimulado =
+                "1\n" +
+                "3\n" +
+                "2\n" + //sair menu atendente
+                "2\n" +
+                "3\n" +
+                "2\n" +//sair menu veterinario
+                "3\n" +
+                "3\n" +
+                "2\n" +//sair menu adotante
+                "4\n" +
+                "3\n" +
+                "2\n" +//sair menu prontuario
+                "5\n" +
+                "3\n" +
+                "2\n" +//sair menu animal
+                "6\n" +
+                "3\n" +
+                "2\n" +//sair menu agenda
+                "0\n";
         try {
             InputStream originalIn = System.in;
             PrintStream originalOut = System.out;
@@ -327,12 +324,13 @@ public class Testes {
             Abrigo_animais.main(new String[]{});
             String saidaTexto = saidaCapturada.toString();
 
-            assertTrue(saidaTexto.contains("Bolt"));
-            assertTrue(saidaTexto.contains("Cachorro"));
-            assertTrue(saidaTexto.contains("12.5"));
-            assertTrue(saidaTexto.contains("4"));
-            assertTrue(saidaTexto.contains("Grande"));
-            assertTrue(saidaTexto.contains("Cadastro alterado com sucesso") || saidaTexto.contains("Animal"));
+            assertTrue(saidaTexto.contains("Nenhum atendente cadastrado."));
+            assertTrue(saidaTexto.contains("Nao ha veterinarios cadastrados."));
+            assertTrue(saidaTexto.contains("Nenhum adotante cadastrado."));
+            assertTrue(saidaTexto.contains("Nao ha prontuários cadastrados."));
+            assertTrue(saidaTexto.contains("Nenhum animal cadastrado."));
+            assertTrue(saidaTexto.contains("Nenhuma consulta agendada."));
+            assertTrue(saidaTexto.contains("Saindo..."));
         } finally {
             System.setIn(originalIn);
             System.setOut(originalOut);

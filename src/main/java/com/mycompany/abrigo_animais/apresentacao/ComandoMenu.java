@@ -3,6 +3,8 @@ package com.mycompany.abrigo_animais.apresentacao;
 import com.mycompany.abrigo_animais.dados.*;
 
 import java.util.Scanner;
+
+import static java.lang.System.in;
 import static java.lang.System.out;
 import java.util.ArrayList;
 
@@ -104,9 +106,9 @@ public class ComandoMenu {
         while (opcaoContinuar == 1) {
             int choice_atd = menu_dados();
             if (choice_atd == 1)
-                atendentes.add(Abrigo_animais.CriarCadastroAtendente());
+                atendentes.add(Abrigo_animais.CriarCadastroAtendente(input));
             else if (choice_atd == 2)
-                Abrigo_animais.AlterarCadastroAtendente(atendentes);
+                Abrigo_animais.AlterarCadastroAtendente(atendentes, input);
             else if (choice_atd == 3)
                 Abrigo_animais.listarAtendentes(atendentes);
             else
@@ -122,9 +124,9 @@ public class ComandoMenu {
         while (opcaoContinuar == 1) {
             int choice_med = menu_dados();
             if (choice_med == 1)
-                vets.add(Abrigo_animais.CriarMedico());
+                vets.add(Abrigo_animais.CriarMedico(input));
             else if (choice_med == 2)
-                Abrigo_animais.AlterarCadastroMedico(vets);
+                Abrigo_animais.AlterarCadastroMedico(vets, input);
             else if (choice_med == 3)
                 Abrigo_animais.listaMedicos(vets);
             else
@@ -140,9 +142,9 @@ public class ComandoMenu {
         while (opcaoContinuar == 1) {
             int choice_adt = menu_dados();
             if (choice_adt == 1)
-                adotantes.add(Abrigo_animais.CriarCadastroPessoa());
+                adotantes.add(Abrigo_animais.CriarCadastroPessoa(input));
             else if (choice_adt == 2)
-                Abrigo_animais.AlterarCadastroPessoa(adotantes);
+                Abrigo_animais.AlterarCadastroPessoa(adotantes, input);
             else if (choice_adt == 3)
                 Abrigo_animais.listarAdotantes(adotantes);
             else
@@ -158,9 +160,9 @@ public class ComandoMenu {
         while (opcaoContinuar == 1) {
             int choice_ptr = menu_dados();
             if (choice_ptr == 1)
-                prontuarios.add(Abrigo_animais.CriarProntuario());
+                prontuarios.add(Abrigo_animais.CriarProntuario(input));
             else if (choice_ptr == 2)
-                Abrigo_animais.AlterarProntuario(prontuarios);
+                Abrigo_animais.AlterarProntuario(prontuarios,  input);
             else if (choice_ptr == 3)
                 Abrigo_animais.listaProntuarios(prontuarios);
             else
@@ -176,9 +178,9 @@ public class ComandoMenu {
         while (opcaoContinuar == 1) {
             int choice_animal = menu_dados();
             if (choice_animal == 1)
-                animais.add(Abrigo_animais.CriarAnimal());
+                animais.add(Abrigo_animais.CriarAnimal(input));
             else if (choice_animal == 2)
-                Abrigo_animais.AlterarCadastroAnimal(animais);
+                Abrigo_animais.AlterarCadastroAnimal(animais, input);
             else if (choice_animal == 3)
                 Abrigo_animais.listarAnimais(animais);
             else
@@ -194,9 +196,9 @@ public class ComandoMenu {
         while (opcaoContinuar == 1) {
             int choice_agenda = menu_dados();
             if (choice_agenda == 1)
-                agenda.add(Abrigo_animais.CriarAgenda());
+                agenda.add(Abrigo_animais.CriarAgenda(input));
             else if (choice_agenda == 2)
-                Abrigo_animais.AlterarCadastroAgenda(agenda);
+                Abrigo_animais.AlterarCadastroAgenda(agenda,input);
             else if (choice_agenda == 3)
                 Abrigo_animais.listarAgendas(agenda);
             else

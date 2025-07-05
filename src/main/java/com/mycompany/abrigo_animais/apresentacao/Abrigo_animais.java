@@ -17,9 +17,8 @@ public class Abrigo_animais {
     private static ArrayList<Prontuario> prontuarios = new ArrayList<>();
     private static ArrayList<Adotantes> adotantes = new ArrayList<>();
     private static ArrayList<Agenda> agenda = new ArrayList<>();
-    static Scanner input = new Scanner(System.in);
 
-    public static int menu_dados() {
+    public static int menu_dados(Scanner input) {
         out.println("Opcoes:");
         out.println("1- Cadastrar");
         out.println("2- Alterar");
@@ -31,7 +30,7 @@ public class Abrigo_animais {
         return choice_dados;
     }
 
-    public static Animal CriarAnimal() {
+    public static Animal CriarAnimal(Scanner input) {
     System.out.println("Informe o nome do animal: ");
     String nome = input.nextLine();
 
@@ -48,10 +47,10 @@ public class Abrigo_animais {
             }
         } else {
             System.out.println("Entrada invalida. Digite um numero.");
-            input.nextLine(); // limpar entrada
+            if (input.hasNextLine()) input.nextLine(); // só consome se existir
         }
+        if (input.hasNextLine()) input.nextLine();
     }
-    input.nextLine();
 
     int idade = -1;
     while (idade < 0 || idade > 100) {
@@ -63,15 +62,15 @@ public class Abrigo_animais {
             }
         } else {
             System.out.println("Entrada invalida. Digite um numero inteiro.");
-            input.next(); // limpar entrada
+            if (input.hasNextLine()) input.nextLine();
         }
     }
 
-    input.nextLine(); // limpar quebra de linha
+    if (input.hasNextLine()) input.nextLine();
 
     System.out.print("Informe o porte: ");
     String porte = input.nextLine();
-
+    out.println("Cadastro realizado com sucesso!\n");
     return new Animal(nome, especie, peso, idade, porte);
 }
 
@@ -89,7 +88,7 @@ public class Abrigo_animais {
         }
     }
 
-    public static void AlterarCadastroAnimal(ArrayList<Animal> animais) {
+    public static void AlterarCadastroAnimal(ArrayList<Animal> animais, Scanner input) {
     if (animais.isEmpty()) {
         System.out.println("Nenhum animal para alterar.");
         return;
@@ -169,9 +168,7 @@ public class Abrigo_animais {
 
 
     ///metodo atendente
-    public static Atendente CriarCadastroAtendente() {
-    Scanner input = new Scanner(System.in);
-
+    public static Atendente CriarCadastroAtendente(Scanner input) {
     System.out.print("Nome: ");
     String nome = input.nextLine();
 
@@ -230,7 +227,7 @@ public class Abrigo_animais {
         }
     }
 
-    public static void AlterarCadastroAtendente(ArrayList<Atendente> atendentes) {
+    public static void AlterarCadastroAtendente(ArrayList<Atendente> atendentes, Scanner input) {
     if (atendentes.isEmpty()) {
         System.out.println("Nenhum atendente cadastrado.");
         return;
@@ -303,7 +300,7 @@ public class Abrigo_animais {
 
 
     //métodos PRONTUÁRIO
-    public static Prontuario CriarProntuario() {
+    public static Prontuario CriarProntuario(Scanner input) {
     int codigo = -1;
     while (codigo <= 0) {
         System.out.print("Codigo: ");
@@ -363,7 +360,7 @@ public class Abrigo_animais {
         }
     }
 
-    public static void AlterarProntuario(ArrayList<Prontuario> prontuarios) {
+    public static void AlterarProntuario(ArrayList<Prontuario> prontuarios, Scanner input) {
     if (prontuarios.isEmpty()) {
         System.out.println("Nao ha prontuarios cadastrados.");
         return;
@@ -425,7 +422,7 @@ public class Abrigo_animais {
 
 
     //métodos VETERINÁRIO
-    public static Veterinario CriarMedico() {
+    public static Veterinario CriarMedico(Scanner input) {
     // Usa o Scanner estático 'input' da classe para evitar múltiplas instâncias
     System.out.print("Nome: ");
     String nome = input.nextLine();
@@ -488,7 +485,7 @@ public class Abrigo_animais {
 
     }
 
-    public static void AlterarCadastroMedico(ArrayList<Veterinario> veterinarios) {
+    public static void AlterarCadastroMedico(ArrayList<Veterinario> veterinarios, Scanner input) {
     if (veterinarios.isEmpty()) {
         System.out.println("Nao ha veterinarios cadastrados.");
         return;
@@ -565,7 +562,7 @@ public class Abrigo_animais {
 }
 
     //métodos ADOTANTES
-    public static Adotantes CriarCadastroPessoa() {
+    public static Adotantes CriarCadastroPessoa(Scanner input) {
     System.out.print("Nome: ");
     String nome = input.nextLine();
     while (nome.isBlank()) {
@@ -614,7 +611,7 @@ public class Abrigo_animais {
         }
     }
 
-    public static void AlterarCadastroPessoa(ArrayList<Adotantes> adotantes) {
+    public static void AlterarCadastroPessoa(ArrayList<Adotantes> adotantes, Scanner input) {
     if (adotantes.isEmpty()) {
         System.out.println("Nenhum adotante cadastrado.");
         return;
@@ -674,7 +671,7 @@ public class Abrigo_animais {
 }
 
     //métodos AGENDA
-    public static Agenda CriarAgenda() {
+    public static Agenda CriarAgenda(Scanner input) {
     String vetNome = "";
     while (vetNome.isBlank()) {
         System.out.print("Informe o nome do veterinario: ");
@@ -752,7 +749,7 @@ public class Abrigo_animais {
         }
     }
 
-    public static void AlterarCadastroAgenda(ArrayList<Agenda> agendas) {
+    public static void AlterarCadastroAgenda(ArrayList<Agenda> agendas, Scanner input) {
     if (agendas.isEmpty()) {
         System.out.println("Nenhuma agenda para alterar.");
         return;
