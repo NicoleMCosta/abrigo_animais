@@ -76,6 +76,11 @@ public class Testes {
     }
 
     @Test
+    public void DadosInvalidos(){
+
+    }
+
+    @Test
     public void AlterarCadastroAnimal() {
         ArrayList<Animal> animais = new ArrayList<>();
         Animal animalOriginal = new Animal("Bolt", "Cachorro", 15.0f, 5, "Médio");

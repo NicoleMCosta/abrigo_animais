@@ -10,11 +10,16 @@ public class Atendente {
     private Date dataContratacao = new Date();
 
     public Atendente(String nome, String endereco, int idade, Date dataContratacao) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome inválido");
+        }
+        if (endereco == null || endereco.trim().isEmpty()) {
+            throw new IllegalArgumentException("Endereço inválido");
+        }
         this.nome = nome;
         this.endereco = endereco;
         this.idade = idade;
         this.dataContratacao = dataContratacao;
-
     }
 
     //get e set
@@ -23,6 +28,9 @@ public class Atendente {
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome inválido");
+        }
         this.nome = nome;
     }
 
@@ -31,6 +39,9 @@ public class Atendente {
     }
 
     public void setEndereco(String endereco) {
+        if (endereco == null || endereco.trim().isEmpty()) {
+            throw new IllegalArgumentException("Endereço inválido");
+        }
         this.endereco = endereco;
     }
 

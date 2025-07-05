@@ -60,10 +60,12 @@ public class Agenda {
 
     @Override
     public String toString() {
-        return "\nVeterinario: " + vetNome + '\n' +
-                "Animal: " + animalNome + '\n' +
-                "Tratamento:" + tratamento + '\n' +
-                "Data Consulta:" + dataConsulta + '\n' +
-                "Hora Consulta:" + horaConsulta + '\n';
-    }
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    return "\nVeterinario: " + vetNome + '\n' +
+           "Animal: " + animalNome + '\n' +
+           "Tratamento: " + tratamento + '\n' +
+           "Data Consulta: " + sdf.format(dataConsulta) + '\n' +
+           "Hora Consulta: " + horaConsulta + '\n';
+}
+
 }

@@ -8,6 +8,21 @@ public class Animal {
     private String porte;
     
     public Animal(String nome, String especie, float peso, int idade, String porte) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome inválido");
+        }
+        if (especie == null || especie.trim().isEmpty()) {
+            throw new IllegalArgumentException("Espécie inválida");
+        }
+        if (peso < 0) {
+            throw new IllegalArgumentException("Peso inválido");
+        }
+        if (idade < 0) {
+            throw new IllegalArgumentException("Idade inválida");
+        }
+        if (porte == null || porte.trim().isEmpty()) {
+            throw new IllegalArgumentException("Porte inválido");
+        }
         this.nome = nome;
         this.especie = especie;
         this.peso = peso;
@@ -15,12 +30,15 @@ public class Animal {
         this.porte = porte;
     }
 
-    //get e set
+    // Getters e Setters com validação
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome inválido");
+        }
         this.nome = nome;
     }
 
@@ -29,6 +47,9 @@ public class Animal {
     }
 
     public void setEspecie(String especie) {
+        if (especie == null || especie.trim().isEmpty()) {
+            throw new IllegalArgumentException("Espécie inválida");
+        }
         this.especie = especie;
     }
 
@@ -37,6 +58,9 @@ public class Animal {
     }
 
     public void setPeso(float peso) {
+        if (peso < 0) {
+            throw new IllegalArgumentException("Peso inválido");
+        }
         this.peso = peso;
     }
 
@@ -45,6 +69,9 @@ public class Animal {
     }
 
     public void setIdade(int idade) {
+        if (idade < 0) {
+            throw new IllegalArgumentException("Idade inválida");
+        }
         this.idade = idade;
     }
 
@@ -53,16 +80,18 @@ public class Animal {
     }
 
     public void setPorte(String porte) {
+        if (porte == null || porte.trim().isEmpty()) {
+            throw new IllegalArgumentException("Porte inválido");
+        }
         this.porte = porte;
     }
 
     @Override
     public String toString() {
         return "Nome: " + nome +
-                "\nEspécie: " + especie +
-                "\nPeso: " + peso +
-                "\nIdade: " + idade +
-                "\nPorte: " + porte;
+               "\nEspécie: " + especie +
+               "\nPeso: " + peso +
+               "\nIdade: " + idade +
+               "\nPorte: " + porte;
     }
-
 }

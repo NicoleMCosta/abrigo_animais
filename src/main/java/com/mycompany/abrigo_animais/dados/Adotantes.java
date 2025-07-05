@@ -5,18 +5,20 @@ public class Adotantes {
     private String endereco;
     private int idade;
 
-    public Adotantes( String nome, String endereco, int idade) {
-        this.nome = nome;
-        this.endereco = endereco;
-        this.idade = idade;
+    public Adotantes(String nome, String endereco, int idade) {
+        setNome(nome);         // valida no setter
+        setEndereco(endereco); // valida no setter
+        setIdade(idade);       // valida no setter
     }
 
-    //get e set
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio");
+        }
         this.nome = nome;
     }
 
@@ -25,6 +27,9 @@ public class Adotantes {
     }
 
     public void setEndereco(String endereco) {
+        if (endereco == null || endereco.trim().isEmpty()) {
+            throw new IllegalArgumentException("Endereço não pode ser vazio");
+        }
         this.endereco = endereco;
     }
 
@@ -33,6 +38,9 @@ public class Adotantes {
     }
 
     public void setIdade(int idade) {
+        if (idade < 0) {
+            throw new IllegalArgumentException("Idade não pode ser negativa");
+        }
         this.idade = idade;
     }
 
@@ -42,5 +50,4 @@ public class Adotantes {
                 "\nEndereço: " + endereco +
                 "\nIdade: " + idade;
     }
-
 }
