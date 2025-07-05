@@ -30,14 +30,27 @@ public class Abrigo_animais {
         return choice_dados;
     }
 
+    //metodo ANIMAL
     public static Animal CriarAnimal(Scanner input) {
-    System.out.println("Informe o nome do animal: ");
-    String nome = input.nextLine();
+        String nome = "";
+        do {
+            System.out.print("Nome: ");
+            nome = input.nextLine().trim();
+            if (nome.isEmpty()) {
+                System.out.println("Nome não pode ser vazio.");
+            }
+        } while (nome.isEmpty());
 
-    System.out.print("Informe a especie: ");
-    String especie = input.nextLine();
+        String especie = "";
+        do {
+            System.out.print("Especie: ");
+            especie = input.nextLine().trim();
+            if (especie.isEmpty()) {
+                System.out.println("Endereço não pode ser vazio.");
+            }
+        } while (especie.isEmpty());
 
-    float peso = -1;
+        float peso = -1;
     while (peso <= 0) {
         System.out.print("Informe o peso: ");
         if (input.hasNextFloat()) {
@@ -68,8 +81,15 @@ public class Abrigo_animais {
 
     if (input.hasNextLine()) input.nextLine();
 
-    System.out.print("Informe o porte: ");
-    String porte = input.nextLine();
+    String porte = "";
+    do {
+        System.out.print("Porte: ");
+        porte = input.nextLine().trim();
+        if (porte.isEmpty()) {
+            System.out.println("Porte não pode ser vazio.");
+        }
+    } while (porte.isEmpty());
+
     out.println("Cadastro realizado com sucesso!\n");
     return new Animal(nome, especie, peso, idade, porte);
 }
@@ -166,52 +186,58 @@ public class Abrigo_animais {
     System.out.println("Cadastro alterado com sucesso!");
 }
 
-
-    ///metodo atendente
+    //metodo ATENDENTE
     public static Atendente CriarCadastroAtendente(Scanner input) {
-    System.out.print("Nome: ");
-    String nome = input.nextLine();
-
-    System.out.print("Endereço: ");
-    String endereco = input.nextLine();
-
-    int idade = -1;
-    while (idade < 0 || idade > 120) {
-        System.out.print("Idade: ");
-        if (input.hasNextInt()) {
-            idade = input.nextInt();
-            if (idade < 0 || idade > 120) {
-                System.out.println("Idade invalida. Tente novamente.");
+        String nome = "";
+        do {
+            System.out.print("Nome: ");
+            nome = input.nextLine().trim();
+            if (nome.isEmpty()) {
+                System.out.println("Nome não pode ser vazio.");
             }
-        } else {
-            System.out.println("Entrada invalida. Digite um numero valido.");
-            input.next(); // Limpa entrada inválida
-        }
-    }
-    input.nextLine(); // Limpa o buffer do teclado
+        } while (nome.isEmpty());
 
-    Date dataContratacao = null;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    sdf.setLenient(false); // impede datas inválidas como 32/13/2023
+        String endereco = "";
+        do {
+            System.out.print("Endereço: ");
+            endereco = input.nextLine().trim();
+            if (endereco.isEmpty()) {
+                System.out.println("Endereço não pode ser vazio.");
+            }
+        } while (endereco.isEmpty());
 
-    while (dataContratacao == null) {
-        System.out.print("Data de contratacao (formato dd/MM/yyyy): ");
-        String dataTexto = input.nextLine();
-        try {
-            Date dataTemp = sdf.parse(dataTexto);
-            Date hoje = new Date();
-            if (dataTemp.after(hoje)) {
-                System.out.println("Data nao pode ser no futuro. Tente novamente.");
+        int idade = -1;
+        while (idade < 18 || idade > 100) {
+            System.out.print("Idade: ");
+            if (input.hasNextInt()) {
+                idade = input.nextInt();
+                if (idade < 18 || idade > 100) {
+                    System.out.println("Idade deve estar entre 18 e 100.");
+                }
             } else {
-                dataContratacao = dataTemp;
+                System.out.println("Entrada inválida. Digite um número inteiro.");
+                input.next(); // limpa lixo
             }
-        } catch (ParseException e) {
-            System.out.println("Formato de data invalido. Tente novamente.");
+            input.nextLine(); // consome '\n'
         }
-    }
 
-    return new Atendente(nome, endereco, idade, dataContratacao);
-}
+        Date dataContratacao = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false); // impede datas como 32/13/2020
+
+        while (dataContratacao == null) {
+            System.out.print("Data de contratação (dd/MM/yyyy): ");
+            String entrada = input.nextLine();
+            try {
+                dataContratacao = sdf.parse(entrada);
+            } catch (Exception e) {
+                System.out.println("Data inválida. Tente novamente.");
+            }
+        }
+
+        System.out.println("Cadastro realizado com sucesso!\n");
+        return new Atendente(nome, endereco, idade, dataContratacao);
+    }
 
     public static void listarAtendentes(ArrayList<Atendente> atendentes) {
         if (atendentes.isEmpty()) {
@@ -296,8 +322,6 @@ public class Abrigo_animais {
 
     System.out.println("Cadastro alterado com sucesso!");
 }
-
-
 
     //métodos PRONTUÁRIO
     public static Prontuario CriarProntuario(Scanner input) {
@@ -420,22 +444,34 @@ public class Abrigo_animais {
     System.out.println("Prontuario alterado com sucesso!");
 }
 
-
     //métodos VETERINÁRIO
     public static Veterinario CriarMedico(Scanner input) {
-    // Usa o Scanner estático 'input' da classe para evitar múltiplas instâncias
-    System.out.print("Nome: ");
-    String nome = input.nextLine();
+    String nome = "";
 
-    System.out.print("Endereco: ");
-    String endereco = input.nextLine();
+    do {
+        System.out.print("Nome: ");
+        nome = input.nextLine().trim();
+        if (nome.isEmpty()) {
+            System.out.println("Nome não pode ser vazio.");
+        }
+    } while (nome.isEmpty());
+
+    String endereco = "";
+    do {
+        System.out.print("Endereço: ");
+        endereco = input.nextLine().trim();
+        if (endereco.isEmpty()) {
+            System.out.println("Endereço não pode ser vazio.");
+        }
+    } while (endereco.isEmpty());
 
     int idade = -1;
-    while (idade < 0 || idade > 120) {
+
+    while (idade < 18 || idade > 120) {
         System.out.print("Idade: ");
         if (input.hasNextInt()) {
             idade = input.nextInt();
-            if (idade < 0 || idade > 120) {
+            if (idade < 18 || idade > 120) {
                 System.out.println("Idade invalida. Tente novamente.");
             }
         } else {
@@ -443,7 +479,7 @@ public class Abrigo_animais {
             input.next(); // limpar entrada inválida
         }
     }
-    input.nextLine(); // limpar o buffer do Scanner após nextInt()
+        input.nextLine();
 
     System.out.print("Especialidade: ");
     String especialidade = input.nextLine();
@@ -563,39 +599,41 @@ public class Abrigo_animais {
 
     //métodos ADOTANTES
     public static Adotantes CriarCadastroPessoa(Scanner input) {
-    System.out.print("Nome: ");
-    String nome = input.nextLine();
-    while (nome.isBlank()) {
-        System.out.println("Nome nao pode ser vazio.");
-        System.out.print("Nome: ");
-        nome = input.nextLine();
-    }
-
-    System.out.print("Endereco: ");
-    String endereco = input.nextLine();
-    while (endereco.isBlank()) {
-        System.out.println("Endereco nao pode ser vazio.");
-        System.out.print("Endereco: ");
-        endereco = input.nextLine();
-    }
-
-    int idade = -1;
-    while (idade < 0 || idade > 120) {
-        System.out.print("Idade: ");
-        if (input.hasNextInt()) {
-            idade = input.nextInt();
-            if (idade < 0 || idade > 120) {
-                System.out.println("Idade invalida. Tente novamente.");
+        String nome = "";
+        do {
+            System.out.print("Nome: ");
+            nome = input.nextLine().trim(); // remove espaços nas bordas
+            if (nome.isEmpty()) {
+                System.out.println("Nome não pode ser vazio.");
             }
-        } else {
-            System.out.println("Entrada invalida. Digite um numero inteiro.");
-            input.next(); // limpar entrada invalida
-        }
-    }
-    input.nextLine(); // limpar buffer
+        } while (nome.isEmpty());
 
-    return new Adotantes(nome, endereco, idade);
-}
+        String endereco = "";
+        do {
+            System.out.print("Endereço: ");
+            endereco = input.nextLine().trim();
+            if (endereco.isEmpty()) {
+                System.out.println("Endereço não pode ser vazio.");
+            }
+        } while (endereco.isEmpty());
+
+        int idade = -1;
+        while (idade < 0 || idade > 120) {
+            System.out.print("Idade: ");
+            if (input.hasNextInt()) {
+                idade = input.nextInt();
+                if (idade < 0 || idade > 120) {
+                    System.out.println("Idade invalida. Tente novamente.");
+                }
+            } else {
+                System.out.println("Entrada invalida. Digite um numero inteiro.");
+                input.next(); // limpar entrada invalida
+            }
+            input.nextLine();
+        }
+        System.out.println("Cadastro realizado com sucesso!\n");
+        return new Adotantes(nome, endereco, idade);
+    }
 
     public static void listarAdotantes(ArrayList<Adotantes> adotantes) {
         if (adotantes.isEmpty()) {

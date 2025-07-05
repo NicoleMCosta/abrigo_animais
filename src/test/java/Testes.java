@@ -77,7 +77,25 @@ public class Testes {
 
     @Test
     public void DadosInvalidos(){
+        String inputSimulado = "abc\n0\n";
 
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+
+        try{
+            System.setIn(new ByteArrayInputStream(inputSimulado.getBytes()));
+
+            ByteArrayOutputStream saidaCapturada = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(saidaCapturada));
+
+            Abrigo_animais.main(new String[]{});
+            String saidaTexto = saidaCapturada.toString();
+
+            assertTrue(saidaTexto.contains("Entrada invalida! Digite um numero."));
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
     }
 
     @Test

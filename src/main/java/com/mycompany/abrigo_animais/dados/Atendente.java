@@ -10,12 +10,11 @@ public class Atendente {
     private Date dataContratacao = new Date();
 
     public Atendente(String nome, String endereco, int idade, Date dataContratacao) {
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome inválido");
-        }
-        if (endereco == null || endereco.trim().isEmpty()) {
-            throw new IllegalArgumentException("Endereço inválido");
-        }
+        if (nome == null || nome.isBlank()) throw new IllegalArgumentException("Nome inválido");
+        if (endereco == null || endereco.isBlank()) throw new IllegalArgumentException("Endereço inválido");
+        if (idade < 18 || idade > 100) throw new IllegalArgumentException("Idade inválida");
+        if (dataContratacao == null) throw new IllegalArgumentException("Data de contratação inválida");
+
         this.nome = nome;
         this.endereco = endereco;
         this.idade = idade;
