@@ -8,9 +8,6 @@ public class Animal {
     private String porte;
     
     public Animal(String nome, String especie, float peso, int idade, String porte) {
-        if (peso < 0) {
-            throw new IllegalArgumentException("Peso invalido");
-        }
         this.nome = nome;
         this.especie = especie;
         this.peso = peso;
@@ -23,7 +20,7 @@ public class Animal {
         return nome;
     }
 
-    public void setNome(String especie) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 

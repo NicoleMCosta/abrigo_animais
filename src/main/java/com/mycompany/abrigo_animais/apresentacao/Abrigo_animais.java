@@ -31,7 +31,7 @@ public class Abrigo_animais {
         return choice_dados;
     }
 
-public static Animal CriarAnimal() {
+    public static Animal CriarAnimal() {
     System.out.println("Informe o nome do animal: ");
     String nome = input.nextLine();
 
@@ -48,9 +48,10 @@ public static Animal CriarAnimal() {
             }
         } else {
             System.out.println("Entrada invalida. Digite um numero.");
-            input.next(); // limpar entrada
+            input.nextLine(); // limpar entrada
         }
     }
+    input.nextLine();
 
     int idade = -1;
     while (idade < 0 || idade > 100) {
@@ -73,7 +74,6 @@ public static Animal CriarAnimal() {
 
     return new Animal(nome, especie, peso, idade, porte);
 }
-
 
     public static void listarAnimais(ArrayList<Animal> animais) {
         if (animais.isEmpty()) {
@@ -111,6 +111,13 @@ public static Animal CriarAnimal() {
     // Mostrar dados atuais
     System.out.println("\nDados atuais:");
     System.out.println(a);
+
+
+    System.out.print("Novo nome: ");
+    String nome = input.nextLine();
+    if (!nome.isBlank()) {
+        a.setNome(nome);
+    }
 
     System.out.print("Nova especie: ");
     String especie = input.nextLine();
@@ -161,7 +168,7 @@ public static Animal CriarAnimal() {
 }
 
 
-///metodo atendente
+    ///metodo atendente
     public static Atendente CriarCadastroAtendente() {
     Scanner input = new Scanner(System.in);
 
@@ -209,8 +216,6 @@ public static Animal CriarAnimal() {
     return new Atendente(nome, endereco, idade, dataContratacao);
 }
 
-
-
     public static void listarAtendentes(ArrayList<Atendente> atendentes) {
         if (atendentes.isEmpty()) {
             System.out.println("Nenhum atendente cadastrado.");
@@ -225,7 +230,7 @@ public static Animal CriarAnimal() {
         }
     }
 
-public static void AlterarCadastroAtendente(ArrayList<Atendente> atendentes) {
+    public static void AlterarCadastroAtendente(ArrayList<Atendente> atendentes) {
     if (atendentes.isEmpty()) {
         System.out.println("Nenhum atendente cadastrado.");
         return;
@@ -298,7 +303,7 @@ public static void AlterarCadastroAtendente(ArrayList<Atendente> atendentes) {
 
 
     //métodos PRONTUÁRIO
-public static Prontuario CriarProntuario() {
+    public static Prontuario CriarProntuario() {
     int codigo = -1;
     while (codigo <= 0) {
         System.out.print("Codigo: ");
@@ -344,7 +349,6 @@ public static Prontuario CriarProntuario() {
     return new Prontuario(codigo, nomeMedico, tratamento, status);
 }
 
-
     public static void listaProntuarios(ArrayList<Prontuario> prontuarios) {
         if (prontuarios.isEmpty()) {
             System.out.println("Nao ha prontuários cadastrados.");
@@ -359,7 +363,7 @@ public static Prontuario CriarProntuario() {
         }
     }
 
- public static void AlterarProntuario(ArrayList<Prontuario> prontuarios) {
+    public static void AlterarProntuario(ArrayList<Prontuario> prontuarios) {
     if (prontuarios.isEmpty()) {
         System.out.println("Nao ha prontuarios cadastrados.");
         return;
@@ -421,7 +425,7 @@ public static Prontuario CriarProntuario() {
 
 
     //métodos VETERINÁRIO
-public static Veterinario CriarMedico() {
+    public static Veterinario CriarMedico() {
     // Usa o Scanner estático 'input' da classe para evitar múltiplas instâncias
     System.out.print("Nome: ");
     String nome = input.nextLine();
@@ -469,8 +473,6 @@ public static Veterinario CriarMedico() {
     return new Veterinario(nome, endereco, idade, especialidade, dataContratacao);
 }
 
-
-
     public static void listaMedicos(ArrayList<Veterinario> veterinarios){
         if(veterinarios.isEmpty()){
             System.out.println("Nao ha veterinarios cadastrados.");
@@ -486,7 +488,7 @@ public static Veterinario CriarMedico() {
 
     }
 
-public static void AlterarCadastroMedico(ArrayList<Veterinario> veterinarios) {
+    public static void AlterarCadastroMedico(ArrayList<Veterinario> veterinarios) {
     if (veterinarios.isEmpty()) {
         System.out.println("Nao ha veterinarios cadastrados.");
         return;
@@ -562,9 +564,8 @@ public static void AlterarCadastroMedico(ArrayList<Veterinario> veterinarios) {
     System.out.println("Cadastro alterado com sucesso!");
 }
 
-
     //métodos ADOTANTES
-public static Adotantes CriarCadastroPessoa() {
+    public static Adotantes CriarCadastroPessoa() {
     System.out.print("Nome: ");
     String nome = input.nextLine();
     while (nome.isBlank()) {
@@ -599,7 +600,6 @@ public static Adotantes CriarCadastroPessoa() {
     return new Adotantes(nome, endereco, idade);
 }
 
-
     public static void listarAdotantes(ArrayList<Adotantes> adotantes) {
         if (adotantes.isEmpty()) {
             System.out.println("Nenhum adotante cadastrado.");
@@ -614,7 +614,7 @@ public static Adotantes CriarCadastroPessoa() {
         }
     }
 
- public static void AlterarCadastroPessoa(ArrayList<Adotantes> adotantes) {
+    public static void AlterarCadastroPessoa(ArrayList<Adotantes> adotantes) {
     if (adotantes.isEmpty()) {
         System.out.println("Nenhum adotante cadastrado.");
         return;
@@ -673,9 +673,8 @@ public static Adotantes CriarCadastroPessoa() {
     System.out.println("Cadastro alterado com sucesso!");
 }
 
-
     //métodos AGENDA
-public static Agenda CriarAgenda() {
+    public static Agenda CriarAgenda() {
     String vetNome = "";
     while (vetNome.isBlank()) {
         System.out.print("Informe o nome do veterinario: ");
@@ -739,7 +738,6 @@ public static Agenda CriarAgenda() {
     return new Agenda(vetNome, animalNome, tratamento, dataConsulta, horaConsulta);
 }
 
-
     public static void listarAgendas(ArrayList<Agenda> agendas) {
         if (agendas.isEmpty()) {
             System.out.println("Nenhuma consulta agendada.");
@@ -754,7 +752,7 @@ public static Agenda CriarAgenda() {
         }
     }
 
-  public static void AlterarCadastroAgenda(ArrayList<Agenda> agendas) {
+    public static void AlterarCadastroAgenda(ArrayList<Agenda> agendas) {
     if (agendas.isEmpty()) {
         System.out.println("Nenhuma agenda para alterar.");
         return;
@@ -770,6 +768,7 @@ public static Agenda CriarAgenda() {
     } else {
         System.out.println("Entrada invalida. Indice deve ser um numero.");
         input.next(); // limpar entrada invalida
+        input.nextLine();
         return;
     }
 
