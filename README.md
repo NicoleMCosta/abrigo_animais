@@ -13,6 +13,6 @@ Código feito em Java com o framework de testes JUnit. Foi aplicado o padrão de
 Última alteração no código feita em 05/07.  
     
 ### Autores
-https://github.com/NicoleMCosta  (Nicole Costa)
-https://github.com/viniciusck1   (Vinícius Corrêa)
-https://github.com/pastilhaparatosse (Danton Joshua)
+https://github.com/NicoleMCosta  (Nicole Costa)  
+https://github.com/viniciusck1   (Vinícius Corrêa)  
+https://github.com/pastilhaparatosse (Danton Joshua)  
