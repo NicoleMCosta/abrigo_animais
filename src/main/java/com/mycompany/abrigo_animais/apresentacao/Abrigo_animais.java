@@ -367,6 +367,7 @@ public class Abrigo_animais {
         }
     }
 
+    out.println("Cadastro realizado com sucesso!");
     return new Prontuario(codigo, nomeMedico, tratamento, status);
 }
 
@@ -503,6 +504,7 @@ public class Abrigo_animais {
         }
     }
 
+    out.println("Cadastro realizado com sucesso!");
     return new Veterinario(nome, endereco, idade, especialidade, dataContratacao);
 }
 
@@ -770,6 +772,7 @@ public class Abrigo_animais {
         }
     }
 
+    out.println("Consulta agendada com sucesso!");
     return new Agenda(vetNome, animalNome, tratamento, dataConsulta, horaConsulta);
 }
 

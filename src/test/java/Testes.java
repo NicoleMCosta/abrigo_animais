@@ -12,7 +12,6 @@ import com.mycompany.abrigo_animais.dados.Veterinario;
 import com.mycompany.abrigo_animais.dados.Atendente;
 import com.mycompany.abrigo_animais.dados.Prontuario;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -30,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Testes {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out; //para simulação de user input
-    private final InputStream originalIn = System.in;
+    private final InputStream originalIn = System.in;   //idem
 
     @org.junit.jupiter.api.BeforeAll
     public static void setUpClass() throws Exception {
@@ -76,9 +75,8 @@ public class Testes {
     }
 
     @Test
-    public void DadosInvalidos(){
-        String inputSimulado = "abc\n0\n";
-
+    public void DadosInvalidosAnimal(){
+        String inputSimulado = "5\n1\n\nBolt\nCachorro\n0\n2.4\n-2\n2\nPequeno\n2\n0\n";
         InputStream originalIn = System.in;
         PrintStream originalOut = System.out;
 
@@ -91,7 +89,10 @@ public class Testes {
             Abrigo_animais.main(new String[]{});
             String saidaTexto = saidaCapturada.toString();
 
-            assertTrue(saidaTexto.contains("Entrada invalida! Digite um numero."));
+            assertTrue(saidaTexto.contains("Nome não pode ser vazio"));
+            assertTrue(saidaTexto.contains("Peso invalido. Tente novamente."));
+            assertTrue(saidaTexto.contains("Idade invalida. Tente novamente."));
+            assertTrue(saidaTexto.contains("Cadastro realizado com sucesso!"));
         } finally {
             System.setIn(originalIn);
             System.setOut(originalOut);
@@ -136,6 +137,30 @@ public class Testes {
     }
 
     @Test
+    public void DadosInvalidosAdotante(){
+        String inputSimulado = "3\n1\n\nAna\n\nRua\n-2\n20\n2\n0\n";
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+
+        try{
+            System.setIn(new ByteArrayInputStream(inputSimulado.getBytes()));
+
+            ByteArrayOutputStream saidaCapturada = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(saidaCapturada));
+
+            Abrigo_animais.main(new String[]{});
+            String saidaTexto = saidaCapturada.toString();
+
+            assertTrue(saidaTexto.contains("Nome não pode ser vazio"));
+            assertTrue(saidaTexto.contains("Endereço não pode ser vazio"));
+            assertTrue(saidaTexto.contains("Cadastro realizado com sucesso!"));
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
+    }
+
+    @Test
     public void AlterarAdotante() {
         ArrayList<Adotantes> adotantes = new ArrayList<>();
         Adotantes adotanteOriginal = new Adotantes("Maria", "Rua A", 30);
@@ -167,6 +192,32 @@ public class Testes {
         assertEquals("Consulta", agenda.getTratamento());
         assertEquals(data, agenda.getDataConsulta());
         assertEquals("10:00", agenda.getHoraConsulta());
+    }
+
+    @Test
+    public void DadosInvalidosAgenda(){
+        String inputSimulado = "6\n1\n\nDr. Ana\n\nBidu\n\nCheckup\n12/12/2003\n12/12/2025\n14:00\n2\n0\n";
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+
+        try{
+            System.setIn(new ByteArrayInputStream(inputSimulado.getBytes()));
+
+            ByteArrayOutputStream saidaCapturada = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(saidaCapturada));
+
+            Abrigo_animais.main(new String[]{});
+            String saidaTexto = saidaCapturada.toString();
+
+            assertTrue(saidaTexto.contains("Nome do veterinario nao pode ficar vazio"));
+            assertTrue(saidaTexto.contains("Nome do animal nao pode ficar vazio"));
+            assertTrue(saidaTexto.contains("Tratamento nao pode ficar vazio"));
+            assertTrue(saidaTexto.contains("Data da consulta nao pode ser antes de hoje"));
+            assertTrue(saidaTexto.contains("Consulta agendada com sucesso!"));
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
     }
 
     @Test
@@ -215,6 +266,31 @@ public class Testes {
     }
 
     @Test
+    public void DadosInvalidosAtendente() {
+        String inputSimulado = "1\n1\n\nAnahi\n\nRua B\n0\n20\n12/10/2020\n2\n0\n";
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+
+        try{
+            System.setIn(new ByteArrayInputStream(inputSimulado.getBytes()));
+
+            ByteArrayOutputStream saidaCapturada = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(saidaCapturada));
+
+            Abrigo_animais.main(new String[]{});
+            String saidaTexto = saidaCapturada.toString();
+
+            assertTrue(saidaTexto.contains("Nome não pode ser vazio"));
+            assertTrue(saidaTexto.contains("Endereço não pode ser vazio"));
+            assertTrue(saidaTexto.contains("Idade deve estar entre 18 e 100."));
+            assertTrue(saidaTexto.contains("Cadastro realizado com sucesso!"));
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
+    }
+
+    @Test
     public void AlterarAtendente() throws ParseException {
         ArrayList<Atendente> atendentes = new ArrayList<>();
 
@@ -255,6 +331,32 @@ public class Testes {
     }
 
     @Test
+    public void DadosInvalidosVet() {
+        String inputSimulado = "2\n1\n\nBob\n\nRua A\n1\n12\n19\nGatos\n12/12/2025\n12/12/2024\n2\n0\n";
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+
+        try{
+            System.setIn(new ByteArrayInputStream(inputSimulado.getBytes()));
+
+            ByteArrayOutputStream saidaCapturada = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(saidaCapturada));
+
+            Abrigo_animais.main(new String[]{});
+            String saidaTexto = saidaCapturada.toString();
+
+            assertTrue(saidaTexto.contains("Nome não pode ser vazio"));
+            assertTrue(saidaTexto.contains("Endereço não pode ser vazio"));
+            assertTrue(saidaTexto.contains("Idade invalida. Tente novamente."));
+            assertTrue(saidaTexto.contains("Data nao pode ser no futuro. Tente novamente."));
+            assertTrue(saidaTexto.contains("Cadastro realizado com sucesso!"));
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
+    }
+
+    @Test
     public void AlterarVeterinario() throws ParseException {
         ArrayList<Veterinario> veterinarios = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -292,6 +394,32 @@ public class Testes {
         assertEquals("Dra. Ana", pront.getNomeMedico());
         assertEquals("Cirurgia", pront.getTratamento());
         assertEquals("Em andamento", pront.getStatus());
+    }
+
+    @Test
+    public void DadosInvalidosProntuario() {
+        String inputSimulado = "4\n1\na\n1\n\nDra. Claudia\n\nAsma\n\nEm andamento\n2\n0\n";
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+
+        try{
+            System.setIn(new ByteArrayInputStream(inputSimulado.getBytes()));
+
+            ByteArrayOutputStream saidaCapturada = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(saidaCapturada));
+
+            Abrigo_animais.main(new String[]{});
+            String saidaTexto = saidaCapturada.toString();
+
+            assertTrue(saidaTexto.contains("Entrada invalida. Digite um numero inteiro."));
+            assertTrue(saidaTexto.contains("Nome nao pode estar em branco."));
+            assertTrue(saidaTexto.contains("Tratamento nao pode estar em branco."));
+            assertTrue(saidaTexto.contains("Status nao pode estar em branco."));
+            assertTrue(saidaTexto.contains("Cadastro realizado com sucesso!"));
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
     }
 
     @Test
